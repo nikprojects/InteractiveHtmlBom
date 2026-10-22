@@ -17,6 +17,8 @@ from .version import version
 class HarnessHivePlugin(InteractiveHtmlBomPlugin):
     def __init__(self):
         super().__init__()
+        self.icon_file_name = os.path.join(os.path.dirname(__file__), "harnesshive_icon.png")
+        self.dark_icon_file_name = self.icon_file_name
         self.name = "Upload device to HarnessHive"
         self.description = "Select connectors and fields for physical and logical device views."
 
@@ -37,7 +39,23 @@ class HarnessHivePlugin(InteractiveHtmlBomPlugin):
                              - {"Value", "Footprint", "Signals"})
         fields = ["Signals", "Value", "Footprint"] + field_names
         dialog = wx.Dialog(None, title="HarnessHive device", size=(620, 700))
+        icon = wx.Icon()
+        icon.CopyFromBitmap(wx.Bitmap(self.icon_file_name, wx.BITMAP_TYPE_PNG))
+        dialog.SetIcon(icon)
         layout = wx.BoxSizer(wx.VERTICAL)
+        header = wx.BoxSizer(wx.HORIZONTAL)
+        image = wx.Image(self.icon_file_name, wx.BITMAP_TYPE_PNG)
+        size = dialog.FromDIP(wx.Size(40, 40))
+        image.Rescale(size.width, size.height, wx.IMAGE_QUALITY_HIGH)
+        header.Add(wx.StaticBitmap(dialog, bitmap=wx.Bitmap(image)), 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 12)
+        brand = wx.StaticText(dialog, label="HarnessHive")
+        font = brand.GetFont()
+        font.SetWeight(wx.FONTWEIGHT_BOLD)
+        font.SetPointSize(font.GetPointSize() + 4)
+        brand.SetFont(font)
+        header.Add(brand, 0, wx.ALIGN_CENTER_VERTICAL)
+        layout.Add(header, 0, wx.ALL, 12)
+        layout.Add(wx.StaticLine(dialog), 0, wx.EXPAND | wx.LEFT | wx.RIGHT, 8)
         def label(text):
             layout.Add(wx.StaticText(dialog, label=text), 0, wx.ALL, 8)
         label("Device name")

@@ -1,6 +1,6 @@
 # HarnessHive Devices plugin
 
-This fork adds **Upload device to HarnessHive** alongside the original Interactive HTML BOM action. The original action remains available.
+This fork adds **Upload device to HarnessHive** alongside the original Interactive HTML BOM action. The original action remains available. The HarnessHive action uses the official HarnessHive logo in its toolbar/menu icon and export dialog; the original iBOM icon is unchanged.
 
 ## Install
 
