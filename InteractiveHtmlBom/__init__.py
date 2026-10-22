@@ -53,6 +53,10 @@ if (not os.environ.get('INTERACTIVE_HTML_BOM_CLI_MODE', False) and
     plugin = InteractiveHtmlBomPlugin()
     plugin.register()
 
+    from .harnesshive_plugin import HarnessHivePlugin
+    harnesshive_plugin = HarnessHivePlugin()
+    harnesshive_plugin.register()
+
     # Add a button the hacky way if plugin button is not supported
     # in pcbnew, unless this is linux.
     if not plugin.pcbnew_icon_support and not sys.platform.startswith('linux'):
